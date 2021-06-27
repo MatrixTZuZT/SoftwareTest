@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.se.contest.dao.PageMapper">
+  <select id="getContents" resultType="java.util.Map">
+    select *
+    from page_content as t
+    where t.title = "${title}" and t.subtitle = "${subtitle}"
+  </select>
+  <select id="getSubtitle" resultType="java.util.Map">
+    select subtitle
+    from page_content as t
+    where t.title = "${title}"
+  </select>
+  <select id="getUser" resultType="java.util.Map">
+    select *
+    from users as u
+    where u.userIdNum = "${id}"
+  </select>
+  <select id="getQuestions" resultType="java.util.Map">
+    select *
+    from questions as q
+    where
+    <foreach collection="c" item="item" open="" separator="or" close="">
+      q.chapter = "${item}"
+    </foreach>
+  </select>
+  <select id="selectGrade" resultType="java.util.Map">
+    select *
+    from grade as g
+    where
+    <foreach collection="c" item="item" open="" separator="or" close="">
+      g.userId = "${item}"
+    </foreach>
+  </select>
+</mapper>

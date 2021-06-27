@@ -1,0 +1,15 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://175.24.37.192:3306/Contest?characterEncoding=utf-8&user=root&passWord=lym19981120&useSSL=false
+    username: root
+    password: lym19981120
+
+
+mybatis:
+  mapper-locations: "classpath:mapper/*.xml"
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.se.contest.dao.usersDAOMapper">
+  <resultMap id="BaseResultMap" type="com.se.contest.model.usersDAO">
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="userIdNum" jdbcType="VARCHAR" property="userIdNum" />
+  </resultMap>
+  <insert id="insert" parameterType="com.se.contest.model.usersDAO">
+    insert into users (user, password, userIdNum
+      )
+    values (#{user,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userIdNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.se.contest.model.usersDAO">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user != null">
+        user,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="userIdNum != null">
+        userIdNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user != null">
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdNum != null">
+        #{userIdNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.se.contest.model.usersDAO">
+    update users
+    set user = #{user,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        userIdNum = #{userIdNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="remove" parameterType="com.se.contest.model.usersDAO">
+    delete from users
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="list" resultType="com.se.contest.model.usersDAO">
+    select * from users limit ${count} offset ${offset}
+  </select>
+  <select id="tableLen" resultType="java.lang.Integer">
+    select count(*) from users
+  </select>
+</mapper>

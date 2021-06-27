@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.se.contest.dao.questionsDAOMapper">
+  <resultMap id="BaseResultMap" type="com.se.contest.model.questionsDAO">
+    <id column="id" jdbcType="INTEGER" property="id"></id>
+    <result column="question" jdbcType="VARCHAR" property="question" />
+    <result column="A" jdbcType="VARCHAR" property="a" />
+    <result column="B" jdbcType="VARCHAR" property="b" />
+    <result column="C" jdbcType="VARCHAR" property="c" />
+    <result column="D" jdbcType="VARCHAR" property="d" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+    <result column="multiple" jdbcType="VARCHAR" property="multiple" />
+    <result column="chapter" jdbcType="VARCHAR" property="chapter" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, question, A, B, C, D, answer, multiple, chapter
+  </sql>
+  <select id="select" resultType="com.se.contest.model.questionsDAO">
+    select * from questions limit ${count} offset ${offset}
+  </select>
+  <select id="tableLen" resultType="java.lang.Integer">
+    select count(*) from questions
+  </select>
+  <delete id="remove">
+    delete from questions
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.se.contest.model.questionsDAO">
+    insert into questions (question, A, B, 
+      C, D, answer, multiple, 
+      chapter)
+    values (#{question,jdbcType=VARCHAR}, #{a,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, 
+      #{c,jdbcType=VARCHAR}, #{d,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{multiple,jdbcType=VARCHAR}, 
+      #{chapter,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.se.contest.model.questionsDAO">
+    insert into questions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="question != null">
+        question,
+      </if>
+      <if test="a != null">
+        A,
+      </if>
+      <if test="b != null">
+        B,
+      </if>
+      <if test="c != null">
+        C,
+      </if>
+      <if test="d != null">
+        D,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="multiple != null">
+        multiple,
+      </if>
+      <if test="chapter != null">
+        chapter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="question != null">
+        #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="a != null">
+        #{a,jdbcType=VARCHAR},
+      </if>
+      <if test="b != null">
+        #{b,jdbcType=VARCHAR},
+      </if>
+      <if test="c != null">
+        #{c,jdbcType=VARCHAR},
+      </if>
+      <if test="d != null">
+        #{d,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="multiple != null">
+        #{multiple,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter != null">
+        #{chapter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.se.contest.model.questionsDAO">
+    update questions
+    set A = #{a,jdbcType=VARCHAR},
+      B = #{b,jdbcType=VARCHAR},
+      C = #{c,jdbcType=VARCHAR},
+      D = #{d,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      multiple = #{multiple,jdbcType=VARCHAR},
+      chapter = #{chapter,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

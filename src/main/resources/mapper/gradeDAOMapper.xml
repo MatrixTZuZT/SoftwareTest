@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.se.contest.dao.gradeDAOMapper">
+  <resultMap id="BaseResultMap" type="com.se.contest.model.gradeDAO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userId, time, score, rank
+  </sql>
+  <select id="list" parameterType="com.se.contest.model.gradeDAO" resultMap="BaseResultMap">
+    select * from grade limit ${count} offset ${offset }
+  </select>
+  <select id="tableLen" resultType="java.lang.Integer">
+    select count(*) from grade
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.se.contest.model.gradeDAO">
+    delete from grade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.se.contest.model.gradeDAO">
+    insert into grade (userId, time, score, 
+      rank)
+    values (#{userid,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, 
+      #{rank,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.se.contest.model.gradeDAO">
+    insert into grade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="rank != null">
+        rank,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.se.contest.model.gradeDAO">
+    update grade
+    <set>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null">
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time, jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        userid = #{userid, jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id, jdbcType=INTEGER}
+  </update>
+</mapper>

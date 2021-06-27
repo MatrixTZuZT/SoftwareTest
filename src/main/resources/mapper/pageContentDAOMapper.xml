@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.se.contest.dao.pageContentDAOMapper">
+  <insert id="insert" parameterType="com.se.contest.model.pageContentDAO">
+    insert into page_content (title, subtitle, content
+      )
+    values (#{title,jdbcType=VARCHAR}, #{subtitle,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="update" parameterType="com.se.contest.model.pageContentDAO">
+    update page_content
+    set title = #{title,jdbcType=VARCHAR},
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+        content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="remove" parameterType="com.se.contest.model.pageContentDAO">
+    delete from page_content
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="list" resultType="com.se.contest.model.pageContentDAO">
+    select * from page_content limit ${count} offset ${offset}
+  </select>
+  <select id="tableLen" resultType="java.lang.Integer">
+    select count(*) from page_content
+  </select>
+</mapper>
